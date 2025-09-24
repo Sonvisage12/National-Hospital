@@ -7,7 +7,7 @@
 // ===== Display config =====
 #define PANEL_RES_X 64
 #define PANEL_RES_Y 32
-#define PANEL_CHAIN 4
+#define PANEL_CHAIN 1
 int x = 0;
 MatrixPanel_I2S_DMA *dma_display = nullptr;
 uint16_t myBLACK, myBLUE, myRED;
@@ -17,7 +17,7 @@ String scrollMessage = "";
 
 // ===== API config =====
 const char* host = "api.mediboards.io";
-const String path = "/api/public/hospitals/687f47fe-2429-4465-8b59-18432a3195fe/latest-patient";
+const String path = "/api/public/hospitals/bd67803d-8bb5-4e85-bdcf-b4fac57295da/latest-patient";
 unsigned long lastFetch = 0;
 const unsigned long fetchInterval = 30000;
 
@@ -37,7 +37,7 @@ void fetchAndUpdateMessage() {
     Serial.println(payload);
 
     if (payload.length() > 0) {
-      scrollMessage = "NEW PATIENT AT COUCH " + payload + "   ";
+      scrollMessage = "NEW PATIENT AT BED " + payload + "   ";
     } else {
       scrollMessage = "WELCOME TO NHA A&E DEPT   ";
     }
@@ -75,7 +75,7 @@ void setup() {
   // ===== Initialize WiFi using WiFiManager =====
   WiFiManager wm;
   wm.setTimeout(180);
-  bool res = wm.autoConnect("Juth_MediBoard");
+  bool res = wm.autoConnect("NHA_Display_MediBoard2");
 
   if (!res) {
     Serial.println("❌ Failed to connect. Restarting...");
@@ -141,7 +141,7 @@ void loop() {
   dma_display->setTextSize(2);
   dma_display->setTextColor(myRED);
   dma_display->setCursor(10, 1);
-  dma_display->print("NHA EMERGENCY UNIT");
+  dma_display->print(" NHA EMERGENCY UNIT");
 
   // Scrolling message
   dma_display->setTextSize(2);
@@ -156,6 +156,6 @@ void loop() {
     fetchAndUpdateMessage();
   }
 
-  delay(50);
+  delay(20);
 }
 

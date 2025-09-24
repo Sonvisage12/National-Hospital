@@ -17,7 +17,7 @@ String scrollMessage = "";
 
 // ===== API config =====
 const char* host = "api.mediboards.io";
-const String path = "/api/public/hospitals/687f47fe-2429-4465-8b59-18432a3195fe/latest-patient";
+const String path = "/api/public/hospitals/bd67803d-8bb5-4e85-bdcf-b4fac57295da/latest-patient";
 unsigned long lastFetch = 0;
 const unsigned long fetchInterval = 30000;
 
@@ -37,7 +37,7 @@ void fetchAndUpdateMessage() {
     Serial.println(payload);
 
     if (payload.length() > 0) {
-      scrollMessage = "NEW PATIENT AT COUCH " + payload + "   ";
+      scrollMessage = "NEW PATIENT AT BED " + payload + "   ";
     } else {
       scrollMessage = "WELCOME TO NHA A&E DEPT   ";
     }
@@ -75,7 +75,7 @@ void setup() {
   // ===== Initialize WiFi using WiFiManager =====
   WiFiManager wm;
   wm.setTimeout(180);
-  bool res = wm.autoConnect("Juth_MediBoard");
+  bool res = wm.autoConnect("NHA_Display_MediBoard");
 
   if (!res) {
     Serial.println("❌ Failed to connect. Restarting...");
@@ -156,6 +156,6 @@ void loop() {
     fetchAndUpdateMessage();
   }
 
-  delay(50);
+  delay(20);
 }
 
